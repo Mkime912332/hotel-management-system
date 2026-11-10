@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kime Hotel</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+        }
+
+        .hero {
+            background: #334155;
+            color: white;
+            text-align: center;
+            padding: 90px 20px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+        }
+
+        .rooms {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .room-card {
+            background: white;
+            padding: 20px;
+            margin: 15px;
+            display: inline-block;
+            width: 220px;
+            border-radius: 10px;
+        }
+
+        footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        button {
+            background: #172554;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>KIME HOTEL</h1>
+    <p>Comfort, Luxury and Hospitality</p>
+</header>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="#rooms">Rooms</a>
+    <a href="{% url 'book_room' %}">Book a Room</a>
+</nav>
+
+{% if messages %}
+    {% for message in messages %}
+    <p role="status" style="text-align: center;">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<section class="hero">
+    <h1>Welcome to Kime Hotel</h1>
+    <p>Experience comfort and luxury at affordable prices.</p>
+    <a href="#rooms">
+        <button>Explore Our Rooms</button>
+    </a>
+</section>
+
+<section class="rooms" id="rooms">
+    <h2>Our Available Rooms</h2>
+
+    {% for room in rooms %}
+    <div class="room-card">
+        <h3>Room {{ room.room_number }}</h3>
+        <p>Type: {{ room.room_type }}</p>
+        <p>Price: ₦{{ room.price }}</p>
+        <a href="{% url 'book_room' %}?room={{ room.pk }}">
+            <button type="button">Book this room</button>
+        </a>
+    </div>
+    {% empty %}
+    <p>No rooms are currently available.</p>
+    {% endfor %}
+
+</section>
+
+<footer>
+    <p>&copy; 2026 Kime Hotel Management System</p>
+    <p>All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
